@@ -48,12 +48,12 @@ resource "aws_instance" "web_cluster" {
 
     user_data = <<-EOF
                 #!/bin/bash
-                echo "Hello World from ${aws_instance.web_cluster.name}
+                echo "Hello World from ${aws_instance.web_cluster.name[count.index]}
                 nohup busybox httpd -f -p ${var.port_to} &
                 EOF
 
     tags = {
-        "Name"        = aws_instance.web_cluster.name
+        "Name"        = ${aws_instance.web_cluster.name[count.index]}
         "Terraform"   = "true"
         "Environment" = var.env_name
    }
