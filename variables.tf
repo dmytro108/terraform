@@ -60,7 +60,7 @@ variable "ec2_type" {
 
 variable "availability_zones" {
     description = "azs"
-    type = tuple([ string ])
+    type = list(string)
     default = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]  
 }
 
