@@ -40,7 +40,9 @@ module "vpc" {
 //Create 2 EC2 instances in the private subnet
 resource "aws_instance" "web_cluster" {
     count                  = var.serv_num
-    server_name            = "web_server-${count.index}"
+    locals{
+        server_name            = "web_server-${count.index}"
+    }
     ami                    = var.ec2_ami_id
     instance_type          = var.ec2_type
     subnet_id              = module.vpc.private_subnets[0]
