@@ -38,15 +38,40 @@ module "vpc" {
 }
 
 //Create 2 EC2 instances in the private subnet
-resource "aws_instance" "servers" {
+resource "aws_instance" "web_cluster" {
     count         = var.serv_num
     ami           = var.ami_id
     instance_type = var.ec2_type
     subnet_id     = module.vpc.private_subnets[0]
 
     tags = {
-        "Name"        = "server-${count.index}"
+        "Name"        = "web_server-${count.index}"
         "Terraform"   = "true"
         "Environment" = var.env_name
    }
+}
+
+//Create Security group for web servers
+resource "aws_security_group" "web_cluster_access" {
+    name = "ec2-lb-access"
+    vpc_id = module.vpc.vpc_id
+    
+    ingress { 
+        from_port = var.port_from
+        to_port = var.port_to
+        protocol = "tcp"
+    }
+    
+    egress {
+        from_port = var.port_from
+        to_port = var.port_to
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    tags = {
+        "Name"        = "web"
+        "Terraform"   = "true"
+        "Environment" = var.env_name
+  }   
 }

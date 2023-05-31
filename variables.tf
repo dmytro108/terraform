@@ -70,3 +70,15 @@ variable "serv_num" {
     default = 0
   
 }
+variable "port_from" {
+    description = "Remote port number for security group"
+    type = number
+    default = 80
+  
+}
+variable "port_to" {
+    description = "Local port number for security group"
+    type = number
+    default = 80
+  
+}
