@@ -98,13 +98,12 @@ resource "aws_lb_listener" "http" {
     load_balancer_arn = aws_lb.web_balancer.arn
     port = 80
     protocol = "HTTP"
-
 }
 
 // ******************* Load Balancer Security Group
 resource "aws_security_group" "lb_access" {
     vpc_id = module.vpc.vpc_id
-    
+
     ingress {
         from_port = 80
         to_port = 80
@@ -118,4 +117,23 @@ resource "aws_security_group" "lb_access" {
         protocol = "tcp"
         cidr_blocks = module.vpc.private_subnets_cidr_blocks
     }
+}
+
+// ****************** Load Balancer Target Group
+resource "aws_lb_target_group" "web_cluster" {
+    port = var.port_to
+    protocol = "HTTP"
+    vpc_id = module.vpc.vpc_id
+
+    health_check {
+      path                = "/"
+      protocol            = "HTTP"
+      matcher             = "200"
+      interval            = 10
+      timeout             = 5
+      healthy_threshold   = 3
+      unhealthy_threshold = 10
+      pport               =  var.port_to
+    }
+
 }
