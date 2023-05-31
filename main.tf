@@ -10,7 +10,7 @@ terraform {
     }
 }
 
-// ********************* AWS provider, authentification with aws cli file
+// ********************* AWS provider
 provider "aws" {
     region                   = var.region
     shared_credentials_files = [var.credential_path]
@@ -24,7 +24,7 @@ provider "aws" {
     }
 }
 
-// ********************* Create VPC 
+// ********************* VPC 
 // Two subnets public and private, no NAT
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
@@ -42,7 +42,7 @@ module "vpc" {
   }
 }
 
-// ********************* Create 2 EC2 instances in the private subnet
+// ********************* EC2 instances 
 resource "aws_instance" "web_cluster" {
     count                  = var.serv_num
     ami                    = var.ec2_ami_id
@@ -61,7 +61,7 @@ resource "aws_instance" "web_cluster" {
    }
 }
 
-// ******************** Create Security group for web servers
+// ******************** EC2 instances Security Group
 resource "aws_security_group" "web_cluster_access" {
     vpc_id = module.vpc.vpc_id
     
@@ -83,12 +83,39 @@ resource "aws_security_group" "web_cluster_access" {
     }   
 }
 
-// ******************* Create application load balancer
+// ******************* Load Balancer
 resource "aws_lb" "web_balancer" {
     load_balancer_type = "application"
     subnets = module.vpc.public_subnets
 
     tags = {
         "Name" = "web_balancer"
+    }
+}
+
+// ******************* Load Balanser listener
+resource "aws_lb_listener" "http" {
+    load_balancer_arn = aws_lb.web_balancer.arn
+    port = 80
+    protocol = "HTTP"
+
+}
+
+// ******************* Load Balancer Security Group
+resource "aws_security_group" "lb_access" {
+    vpc_id = module.vpc.vpc_id
+    
+    ingress {
+        from_port = 80
+        to_port = 80
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    egress {
+        from_port = 80
+        to_port = 80
+        protocol = "tcp"
+        cidr_blocks = module.vpc.private_subnets_cidr_blocks
     }
 }
