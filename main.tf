@@ -53,7 +53,7 @@ resource "aws_instance" "web_cluster" {
                 EOF
 
     tags = {
-        "Name"        = ${aws_instance.web_cluster.name[count.index]}
+        "Name"        = "${aws_instance.web_cluster.name[count.index]}"
         "Terraform"   = "true"
         "Environment" = var.env_name
    }
