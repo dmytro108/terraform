@@ -1,5 +1,5 @@
-// Terraform init with latest aws provider
-terraform{
+// ********************* Terraform init with latest aws provider
+terraform {
     required_version = ">= 1.0"
     backend "local" {}
     required_providers {
@@ -10,14 +10,14 @@ terraform{
     }
 }
 
-//AWS provider, authentification with aws cli file
+// ********************* AWS provider, authentification with aws cli file
 provider "aws" {
     region                   = var.region
     shared_credentials_files = [var.credential_path]
     profile                  = var.aws_cli_profile
 }
 
-// Create VPC 
+// ********************* Create VPC 
 // Two subnets public and private, no NAT
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
@@ -37,12 +37,9 @@ module "vpc" {
   }
 }
 
-//Create 2 EC2 instances in the private subnet
+// ********************* Create 2 EC2 instances in the private subnet
 resource "aws_instance" "web_cluster" {
     count                  = var.serv_num
-    locals {
-        server_name            = "web_server-${count.index}"
-    }
     ami                    = var.ec2_ami_id
     instance_type          = var.ec2_type
     subnet_id              = module.vpc.private_subnets[0]
@@ -50,18 +47,18 @@ resource "aws_instance" "web_cluster" {
 
     user_data = <<-EOF
                 #!/bin/bash
-                echo "Hello World from ${Local.server_name}
+                echo "Hello World from web_server-${count.index}"
                 nohup busybox httpd -f -p ${var.port_to} &
                 EOF
 
     tags = {
-        "Name"        = "${local.server_name}"
+        "Name"        = "web_server-${count.index}"
         "Terraform"   = "true"
         "Environment" = var.env_name
    }
 }
 
-//Create Security group for web servers
+// ******************** Create Security group for web servers
 resource "aws_security_group" "web_cluster_access" {
     vpc_id = module.vpc.vpc_id
     
@@ -85,7 +82,7 @@ resource "aws_security_group" "web_cluster_access" {
   }   
 }
 
-//Create application load balancer
+// ******************* Create application load balancer
 resource "aws_lb" "web_balancer" {
     load_balancer_type = "application"
     subnets = module.vpc.public_subnets
