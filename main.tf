@@ -40,7 +40,7 @@ module "vpc" {
 //Create 2 EC2 instances in the private subnet
 resource "aws_instance" "web_cluster" {
     count                  = var.serv_num
-    name                   = "web_server-${count.index}"
+    server_name            = "web_server-${count.index}"
     ami                    = var.ec2_ami_id
     instance_type          = var.ec2_type
     subnet_id              = module.vpc.private_subnets[0]
@@ -48,12 +48,12 @@ resource "aws_instance" "web_cluster" {
 
     user_data = <<-EOF
                 #!/bin/bash
-                echo "Hello World from ${aws_instance.web_cluster[count.index].name}
+                echo "Hello World from ${aws_instance.web_cluster[count.index].server_name}
                 nohup busybox httpd -f -p ${var.port_to} &
                 EOF
 
     tags = {
-        "Name"        = "${aws_instance.web_cluster[count.index].name}"
+        "Name"        = "${aws_instance.web_cluster[count.index].server_name}"
         "Terraform"   = "true"
         "Environment" = var.env_name
    }
