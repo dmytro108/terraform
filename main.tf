@@ -15,6 +15,13 @@ provider "aws" {
     region                   = var.region
     shared_credentials_files = [var.credential_path]
     profile                  = var.aws_cli_profile
+    
+    default_tags {
+        tags = {
+            "Terraform"   = "true"
+            "Environment" = var.env_name
+        }
+    }
 }
 
 // ********************* Create VPC 
@@ -32,8 +39,6 @@ module "vpc" {
 
   tags = {
     "Name"        = var.vpc_name
-    "Terraform"   = "true"
-    "Environment" = var.env_name
   }
 }
 
@@ -53,8 +58,6 @@ resource "aws_instance" "web_cluster" {
 
     tags = {
         "Name"        = "web_server-${count.index}"
-        "Terraform"   = "true"
-        "Environment" = var.env_name
    }
 }
 
@@ -77,13 +80,15 @@ resource "aws_security_group" "web_cluster_access" {
 
     tags = {
         "Name"        = "web"
-        "Terraform"   = "true"
-        "Environment" = var.env_name
-  }   
+    }   
 }
 
 // ******************* Create application load balancer
 resource "aws_lb" "web_balancer" {
     load_balancer_type = "application"
     subnets = module.vpc.public_subnets
+
+    tags = {
+        "Name" = "web_balancer"
+    }
 }
