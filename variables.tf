@@ -46,7 +46,7 @@ variable "aws_cli_profile" {
     default = "default"  
 }
 
-variable "ami_id" {
+variable "ec2_ami_id" {
     description = "AWS ami id"
     type = string
     default = "ami-0e1c5be2aa956338b" //AWS Linux 2023 x86_64  
