@@ -1,6 +1,7 @@
 region        = "eu-west-2" // London
 ec2_type      = "t2.micro" // free tier
 ec2_ami_id    = "ami-0eb260c4d5475b901" //Ubuntu 22.04
+availability_zones = ["eu-west-2a"]
 vpc_name      = "web_ebl" // balanced web servers 
 env_name      = "epam" //Epam devops course
 vpc_cidr      = "192.168.0.0/16" //VPC CIDR
