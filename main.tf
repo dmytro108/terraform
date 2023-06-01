@@ -36,6 +36,7 @@ module "vpc" {
 
   enable_nat_gateway = false
   enable_vpn_gateway = false
+  enable_ipv6 = false
 
   tags = {
     "Name"        = var.vpc_name
