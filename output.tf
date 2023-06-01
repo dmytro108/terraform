@@ -1,4 +1,4 @@
-output "ami_id"{
-description = "AMI ID for EC2 instance"
-value = var.ami_id
+output "public_ip"{
+description = "Load Balancer publick IP address"
+value = aws_lb.web_balancer.dns_name
 }
