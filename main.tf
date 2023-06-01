@@ -101,6 +101,10 @@ resource "aws_lb_listener" "http" {
     load_balancer_arn = aws_lb.web_balancer.arn
     port = 80
     protocol = "HTTP"
+    default_action {
+      type = "forward"
+      target_group_arn = aws_lb_target_group.web_cluster.arn
+    }
 }
 
 // ******************* Load Balancer Security Group
@@ -136,13 +140,13 @@ resource "aws_lb_target_group" "web_cluster" {
       timeout             = 5
       healthy_threshold   = 3
       unhealthy_threshold = 10
-      pport               =  var.port_to
+      port               =  var.port_to
     }
 
 }
 
 // ****************** Load Balancer TG Attachment
-resource "aws_lb_target_group_attachment" "name" {
+resource "aws_lb_target_group_attachment" "web_cluster" {
     count = length(aws_instance.web_cluster)
     target_group_arn = aws_lb_target_group.web_cluster.arn
     target_id = aws_instance.web_cluster[count.index].id
