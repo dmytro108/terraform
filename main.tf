@@ -69,6 +69,8 @@ resource "aws_security_group" "web_cluster_access" {
         from_port = var.port_from
         to_port = var.port_to
         protocol = "tcp"
+        security_groups = [ aws_security_group.lb_public_access.id ]
+
     }
     
     egress {
@@ -87,6 +89,7 @@ resource "aws_security_group" "web_cluster_access" {
 resource "aws_lb" "web_balancer" {
     load_balancer_type = "application"
     subnets = module.vpc.public_subnets
+    security_groups = [aws_security_group.lb_public_access]
 
     tags = {
         "Name" = "web_balancer"
@@ -101,7 +104,7 @@ resource "aws_lb_listener" "http" {
 }
 
 // ******************* Load Balancer Security Group
-resource "aws_security_group" "lb_access" {
+resource "aws_security_group" "lb_public_access" {
     vpc_id = module.vpc.vpc_id
 
     ingress {
@@ -136,4 +139,11 @@ resource "aws_lb_target_group" "web_cluster" {
       pport               =  var.port_to
     }
 
+}
+
+// ****************** Load Balancer TG Attachment
+resource "aws_lb_target_group_attachment" "name" {
+    count = length(aws_instance.web_cluster)
+    target_group_arn = aws_lb_target_group.web_cluster.arn
+    target_id = aws_instance.web_cluster[count.index].id
 }
