@@ -52,9 +52,10 @@ resource "aws_instance" "web_cluster" {
     vpc_security_group_ids = [ aws_security_group.web_cluster_access.id ]
 
     user_data = <<-EOF
-                #!/bin/bash
-                echo "Hello World from web_server-${count.index}" > index.html
-                nohup busybox httpd -f -p ${var.port_to} &
+                #!/bin/sh
+                apt-get update
+                apt-get install -y nginx-light
+                echo 'Hello from instance app-${count.index}' > /var/www/html/index.html
                 EOF
 
     tags = {
