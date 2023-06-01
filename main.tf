@@ -89,7 +89,7 @@ resource "aws_security_group" "web_cluster_access" {
 resource "aws_lb" "web_balancer" {
     load_balancer_type = "application"
     subnets = module.vpc.public_subnets
-    security_groups = [aws_security_group.lb_public_access]
+    security_groups = [aws_security_group.lb_public_access.id]
 
     tags = {
         "Name" = "web_balancer"
