@@ -53,7 +53,7 @@ resource "aws_instance" "web_cluster" {
 
     user_data = <<-EOF
                 #!/bin/bash
-                echo "Hello World from web_server-${count.index}"
+                echo "Hello World from web_server-${count.index}" > index.html
                 nohup busybox httpd -f -p ${var.port_to} &
                 EOF
 
