@@ -45,10 +45,10 @@ module "vpc" {
 
 // ********************* EC2 instances 
 resource "aws_instance" "web_cluster" {
-    count                  = var.serv_num
+    count                  = var.serv_num * length(module.vpc.private_subnets)
     ami                    = var.ec2_ami_id
     instance_type          = var.ec2_type
-    subnet_id              = module.vpc.private_subnets[0]
+    subnet_id              = module.vpc.private_subnets[count.index % length(module.vpc.private_subnets)]
     vpc_security_group_ids = [ aws_security_group.web_cluster_access.id ]
 
     user_data = <<-EOF
