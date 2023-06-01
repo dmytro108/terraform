@@ -24,13 +24,13 @@ variable "vpc_cidr" {
 
 variable "pub_net_cidrs" {
     description = "Public subnet CIDR"
-    type = tuple([ string ])
+    type = list(string)
     default = ["10.0.0.0/24"]  
 }
 
 variable "priv_net_cidrs" {
     description = "Privat subnet CIDR"
-    type = tuple([ string ])
+    type = list(string)
     default = ["10.0.10.0/24"]  
 }
 
