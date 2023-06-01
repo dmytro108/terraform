@@ -55,7 +55,7 @@ resource "aws_instance" "web_cluster" {
                 #!/bin/sh
                 apt-get update
                 apt-get install -y nginx-light
-                echo 'Hello from instance app-${count.index}' > /var/www/html/index.html
+                echo 'Hello from web server-${count.index}' > /var/www/html/index.html
                 EOF
 
     tags = {
