@@ -56,6 +56,11 @@ resource "aws_instance" "controller" {
   }
 }
 
+resource "aws_eip" "controller" {
+  instance = aws_instance.controller
+  domain = "vpc"
+}
+
 resource "aws_security_group" "controller_public_access" {
   vpc_id = module.vpc.vpc_id
 
