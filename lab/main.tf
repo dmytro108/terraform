@@ -57,7 +57,7 @@ resource "aws_instance" "controller" {
 }
 
 resource "aws_eip" "controller" {
-  instance = aws_instance.controller
+  instance = aws_instance.controller.id
   domain = "vpc"
 }
 
