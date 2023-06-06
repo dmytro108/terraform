@@ -1,3 +1,15 @@
+variable "nodes_pub_key"{
+    description = "SSH publick key for access to nodes"
+    type = string
+    default = ""
+}
+
+variable "controller_pub_key"{
+    description = "SSH publick key for access to controller host"
+    type = string
+    default = ""
+}
+
 variable "region" {
   description = "AWS region"
   type        = string
@@ -81,4 +93,10 @@ variable "port_to" {
   type        = number
   default     = 80
 
+}
+
+variable "nodes_privat_key" {
+    description = "Privat key for access to nodes"
+    type = string
+    default = ""
 }
