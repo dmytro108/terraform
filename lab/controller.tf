@@ -5,13 +5,7 @@ resource "aws_instance" "controller" {
   vpc_security_group_ids = [aws_security_group.controller_public_access.id]
   key_name               = aws_key_pair.controller.key_name
 
-  user_data = <<-EOF
-                #!/bin/sh
-                python3 -m pip -V
-                curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-                python3 get-pip.py
-                python3 -m pip install ansible
-EOF
+
 
   tags = {
     "Name" = "controller"
