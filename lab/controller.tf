@@ -16,6 +16,10 @@ resource "aws_instance" "controller" {
                 chown ubuntu:ubuntu /home/ubuntu/.ssh/nodes.pk
                 chmod 644 /home/ubuntu/.ssh/nodes.pk
                 chmod 700 /home/ubuntu/.ssh/
+                python3 -m pip -V
+                curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+                python3 get-pip.py
+                python3 -m pip install ansible
                 EOF
 
   tags = {
