@@ -10,7 +10,9 @@ resource "aws_instance" "controller" {
                 apt-get update
                 #apt-get install -y
                 mkdir -p /home/ubuntu/.ssh
-                cat ${var.nodes_privat_key} >> /home/ubuntu/.ssh/nodes.pk 
+                echo ${var.nodes_privat_key} >> /home/ubuntu/.ssh/nodes.pk
+                chown ubuntu:ubuntu /home/ubuntu/.ssh/nodes.pk
+                chmod 644 /home/ubuntu/.ssh/nodes.pk
                 EOF
 
   tags = {
