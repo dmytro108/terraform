@@ -14,7 +14,7 @@ resource "aws_instance" "nodes" {
   instance_type          = var.ec2_type
   subnet_id              = module.vpc.private_subnets[0]
   vpc_security_group_ids = [ aws_security_group.nodes.id ]
-  key_name               = aws_key_pair.nodes
+  key_name               = aws_key_pair.nodes.key_name
 
   tags = {
     "Name" = "node-${count.index}"
@@ -43,7 +43,7 @@ resource "aws_instance" "controller" {
   instance_type          = var.ec2_type
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.controller_public_access.id]
-  key_name               = aws_key_pair.controller
+  key_name               = aws_key_pair.controller.key_name
 
   user_data = <<-EOF
                 #!/bin/sh
