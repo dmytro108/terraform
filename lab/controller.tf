@@ -20,7 +20,7 @@ resource "aws_instance" "controller" {
 
 resource "aws_eip" "controller" {
   instance = aws_instance.controller.id
-  domain = "vpc"
+  domain   = "vpc"
 }
 
 resource "aws_security_group" "controller_public_access" {
