@@ -32,7 +32,7 @@ resource "aws_security_group" "controller_public_access" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
+
 
   egress {
     from_port   = var.port_from

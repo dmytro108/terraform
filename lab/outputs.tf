@@ -5,5 +5,5 @@ output "public_ip" {
 
 output "privat_ips" {
   description = "Control node publick IP address"
-  value = data.aws_instances.nodes_list.private_ips
+  value       = data.aws_instances.nodes_list.private_ips
 }

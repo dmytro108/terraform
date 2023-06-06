@@ -27,7 +27,7 @@ resource "aws_security_group" "nodes" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-    egress {
+  egress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -36,6 +36,6 @@ resource "aws_security_group" "nodes" {
 }
 
 data "aws_instances" "nodes_list" {
- 
-  
+
+
 }
