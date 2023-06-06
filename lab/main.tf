@@ -44,14 +44,14 @@ resource "aws_security_group" "controller_public_access" {
 
     ingress {
         from_port = var.port_from
-        to_port = var.to_from
+        to_port = var.port_to
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
 
     egress {
         from_port = var.port_from
-        to_port = var.to_from
+        to_port = var.port_to
         protocol = "tcp"
         cidr_blocks = module.vpc.private_subnets_cidr_blocks
     }
