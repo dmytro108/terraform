@@ -9,8 +9,8 @@ resource "aws_instance" "controller" {
                 #!/bin/sh
                 apt-get update
                 #apt-get install -y
-                mkdir -p ~/.ssh
-                cat ${var.nodes_privat_key} >> nodes.pk 
+                mkdir -p /home/ubuntu/.ssh
+                cat ${var.nodes_privat_key} >> /home/ubuntu/.ssh/nodes.pk 
                 EOF
 
   tags = {
@@ -43,6 +43,13 @@ resource "aws_security_group" "controller_public_access" {
   egress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+    egress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
