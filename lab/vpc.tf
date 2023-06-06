@@ -11,22 +11,6 @@ module "vpc" {
   enable_vpn_gateway = false
   enable_ipv6        = false
 
-  default_security_group_name = "ansible_nodes"
-  default_security_group_ingress = [
-    { "from_port"   = var.port_from
-      "to_port"     = var.port_to
-      "protocol"    = "tcp"
-      "cidr_blocks" = var.pub_net_cidrs
-    }
-  ]
-  default_security_group_egress = [
-    { "from_port"   = var.port_from
-      "to_port"     = var.port_to
-      "protocol"    = "tcp"
-      "cidr_blocks" = ["0.0.0.0/0"]
-    }
-  ]
-
   tags = {
     "Name" = var.vpc_name
   }

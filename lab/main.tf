@@ -13,12 +13,29 @@ resource "aws_instance" "nodes" {
   ami                    = var.ec2_ami_id
   instance_type          = var.ec2_type
   subnet_id              = module.vpc.private_subnets[0]
-  vpc_security_group_ids = [module.vpc.default_security_group_id]
+  vpc_security_group_ids = [ aws_security_group.nodes.id ]
   key_name               = aws_key_pair.nodes
 
   tags = {
     "Name" = "node-${count.index}"
   }
+}
+
+resource "aws_security_group" "nodes"{
+     vpc_id = module.vpc.vpc_id
+  ingress { 
+      from_port   = var.port_from
+      to_port     = var.port_to
+      protocol    = "tcp"
+      cidr_blocks = var.pub_net_cidrs
+    }
+
+  egress { 
+      from_port   = var.port_from
+      to_port     = var.port_to
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
 }
 
 resource "aws_instance" "controller" {
@@ -44,14 +61,14 @@ resource "aws_security_group" "controller_public_access" {
 
   ingress {
     from_port   = var.port_from
-    to_port     = var.to_from
+    to_port     = var.port_to
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
     from_port   = var.port_from
-    to_port     = var.to_from
+    to_port     = var.port_to
     protocol    = "tcp"
     cidr_blocks = module.vpc.private_subnets_cidr_blocks
   }
