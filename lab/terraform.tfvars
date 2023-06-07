@@ -11,7 +11,7 @@ serv_num           = 2                    // Quantity of nodes
 port_from          = 22
 port_to            = 22
 nodes_pub_key      = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBQDkcwFCp4dJsothUWr9palxd3QQ7Ufw9CuA1AED9Kz ubuntu@ip-192-168-101-54"
-controller_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIClJmRIxBXBk+6c1rTvWiYH5ZrJBP0YmjgEzC64CpNii ed25519-key-20230606"
+controller_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIClJmRIxBXBk+6c1rTvWiYH5ZrJBP0YmjgEzC64CpNii controller-key"
 nodes_privat_key   = <<-EOT
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
