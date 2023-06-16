@@ -3,7 +3,7 @@ resource "aws_instance" "webserver" {
   instance_type          = var.ec2_type
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.webserver_public_access.id]
-  key_name               = aws_key_pair.webserver.key_name
+  //key_name               = aws_key_pair.webserver.key_name
 
   tags = {
     "Name" = "webserver"
@@ -38,21 +38,4 @@ resource "aws_security_group" "webserver_public_access" {
       cidr_blocks = ["0.0.0.0/0"]   
     }
   }
-/*
-  ingress {
-    
-    from_port   = each.value
-    to_port     = each.value
-    protocol    = "tcp"
-    cidr_blocks = var.allowed_ip
-  }
-
-  egress {
-    for_each = toset(var.allowed_ports)
-    from_port   = each.value
-    to_port     = each.value
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-*/
 }

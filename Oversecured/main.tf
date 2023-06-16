@@ -15,64 +15,22 @@ resource "aws_iam_policy" "check_right" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "VisualEditor0",
             "Effect": "Allow",
-            "Action": [
-                "ec2:GetResourcePolicy",
-                "ec2:GetManagedPrefixListEntries",
-                "ec2:GetIpamResourceCidrs",
-                "ec2:GetIpamPoolCidrs",
-                "ec2:GetInstanceUefiData",
-                "ec2:GetCoipPoolUsage",
-                "ec2:ExportClientVpnClientConfiguration",
-                "ec2:GetCapacityReservationUsage",
-                "ec2:ModifySecurityGroupRules",
-                "ec2:GetConsoleScreenshot",
-                "ec2:GetAssociatedEnclaveCertificateIamRoles",
-                "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
-                "ec2:GetConsoleOutput",
-                "ec2:GetIpamAddressHistory",
-                "ec2:ExportClientVpnClientCertificateRevocationList",
-                "ec2:GetPasswordData",
-                "ec2:GetLaunchTemplateData",
-                "ec2:GetFlowLogsIntegrationTemplate",
-                "ec2:GetManagedPrefixListAssociations",
-                "ec2:GetIpamDiscoveredResourceCidrs",
-                "ec2:GetIpamDiscoveredAccounts"
+            "NotAction": [
+                "iam:*",
+                "organizations:*",
+                "account:*"
             ],
-            "Resource": [
-                "arn:aws:ec2:*:445545530422:placement-group/*",
-                "arn:aws:ec2:*:445545530422:security-group-rule/*",
-                "arn:aws:ec2:*:445545530422:security-group/*",
-                "arn:aws:ec2::445545530422:ipam-pool/*",
-                "arn:aws:ec2::445545530422:ipam-scope/*",
-                "arn:aws:ec2:*:445545530422:client-vpn-endpoint/*",
-                "arn:aws:ec2:*:445545530422:prefix-list/*",
-                "arn:aws:ec2:*:445545530422:coip-pool/*",
-                "arn:aws:ec2:*:445545530422:verified-access-group/*",
-                "arn:aws:acm:*:445545530422:certificate/*",
-                "arn:aws:ec2:*:445545530422:capacity-reservation/*",
-                "arn:aws:ec2::445545530422:ipam-resource-discovery/*",
-                "arn:aws:ec2:*:445545530422:vpc-flow-log/*",
-                "arn:aws:ec2:*:445545530422:instance/*"
-            ]
+            "Resource": "*"
         },
         {
-            "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": [
-                "ec2:GetDefaultCreditSpecification",
-                "ec2:GetSerialConsoleAccessStatus",
-                "ec2:GetAssociatedIpv6PoolCidrs",
-                "ec2:GetEbsEncryptionByDefault",
-                "ec2:GetSpotPlacementScores",
-                "ec2:GetHostReservationPurchasePreview",
-                "ec2:GetEbsDefaultKmsKeyId",
-                "ec2:GetNetworkInsightsAccessScopeAnalysisFindings",
-                "ec2:GetNetworkInsightsAccessScopeContent",
-                "ec2:GetSubnetCidrReservations",
-                "ec2:GetAwsNetworkPerformanceData",
-                "ec2:GetReservedInstancesExchangeQuote"
+                "iam:CreateServiceLinkedRole",
+                "iam:DeleteServiceLinkedRole",
+                "iam:ListRoles",
+                "organizations:DescribeOrganization",
+                "account:ListRegions"
             ],
             "Resource": "*"
         }
