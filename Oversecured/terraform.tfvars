@@ -10,3 +10,5 @@ pub_net_cidrs      = ["192.168.101.0/24"] // Public nets
 allowed_ports      = [22, 80, 443]
 allowed_ip         = ["77.68.11.254/32", "86.172.175.128/32"]
 webserver_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIClJmRIxBXBk+6c1rTvWiYH5ZrJBP0YmjgEzC64CpNii controller-key"
+user_name = "d.john"
+user_path = "/"
