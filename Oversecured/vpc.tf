@@ -7,7 +7,7 @@ module "vpc" {
   //private_subnets = var.priv_net_cidrs
   public_subnets  = var.pub_net_cidrs
 
-  enable_nat_gateway = true
+  enable_nat_gateway = false
   enable_vpn_gateway = false
   enable_ipv6        = false
 
