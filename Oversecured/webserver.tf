@@ -18,8 +18,8 @@ resource "aws_eip" "webserver_ip" {
 resource "aws_security_group" "webserver_public_access" {
   vpc_id = module.vpc.vpc_id
 
-  for_each = toset(var.allowed_ports)
   ingress {
+    for_each = toset(var.allowed_ports)
     from_port   = each.value
     to_port     = each.value
     protocol    = "tcp"
@@ -27,6 +27,7 @@ resource "aws_security_group" "webserver_public_access" {
   }
 
   egress {
+    for_each = toset(var.allowed_ports)
     from_port   = each.value
     to_port     = each.value
     protocol    = "tcp"
