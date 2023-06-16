@@ -64,7 +64,7 @@ variable "availability_zones" {
   default     = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
 }
 
-variable "webserever_pub_key" {
+variable "webserver_pub_key" {
   description = "SSH publick key for access to webserver host"
   type        = string
   default     = "Noname"
