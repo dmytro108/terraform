@@ -20,19 +20,23 @@ resource "aws_security_group" "webserver_public_access" {
 
   dynamic "ingress" {
     for_each = toset(var.allowed_ports)
-     from_port   = each.value
-     to_port     = each.value
-     protocol    = "tcp"
-     cidr_blocks = var.allowed_ip
-    
+    content {
+       from_port   = each.value
+       to_port     = each.value
+       protocol    = "tcp"
+      cidr_blocks = var.allowed_ip
+
+    }    
   }
 
   dynamic "egress" {
     for_each = toset(var.allowed_ports)
-     from_port   = each.value
-     to_port     = each.value
-     protocol    = "tcp"
-     cidr_blocks = ["0.0.0.0/0"]   
+    content {
+      from_port   = each.value
+      to_port     = each.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]   
+    }
   }
 /*
   ingress {

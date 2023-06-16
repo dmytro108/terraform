@@ -28,6 +28,12 @@ variable "pub_net_cidrs" {
   default     = ["10.0.0.0/24"]
 }
 
+variable "priv_net_cidrs" {
+  description = "Public subnet CIDR"
+  type        = list(string)
+  default     = ["10.0.0.0/24"]
+}
+
 variable "credential_path" {
   description = "Path to credential file"
   type        = string
