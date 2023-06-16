@@ -73,7 +73,7 @@ variable "allowed_ip" {
 variable "allowed_ports" {
   description = "Allowed ports to connect webserver"
   type        = list(number)
-  default     = [22,80]
+  default     = [22, 80]
 }
 
 variable "user_name" {
