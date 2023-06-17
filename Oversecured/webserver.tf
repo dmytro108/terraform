@@ -40,6 +40,6 @@ resource "aws_security_group" "webserver_public_access" {
   }
 
   tags = {
-    "Name" = "${var.name_prefix}rules"
+    "Name" = "${var.name_pref}rules"
   }
 }

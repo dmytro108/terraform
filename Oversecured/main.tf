@@ -4,7 +4,7 @@ resource "aws_iam_user" "oversecured_user" {
   force_destroy = true
 
   tags = {
-    "Name" = "${var.name_prefix}user"
+    "Name" = "${var.name_pref}user"
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_iam_user_login_profile" "oversecured" {
   user = aws_iam_user.oversecured_user.name
 
   tags = {
-    "Name" = "${var.name_prefix}profile"
+    "Name" = "${var.name_pref}profile"
   }
 }
 
@@ -45,7 +45,7 @@ resource "aws_iam_policy" "check_right" {
   })
 
   tags = {
-    "Name" = "${var.name_prefix}policy"
+    "Name" = "${var.name_pref}policy"
   }
 
 }

@@ -3,6 +3,6 @@ resource "aws_key_pair" "webserver" {
   public_key = var.webserver_pub_key
 
   tags = {
-    "Name" = "${var.name_prefix}key"
+    "Name" = "${var.name_pref}key"
   }
 }
