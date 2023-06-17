@@ -3,10 +3,10 @@ resource "aws_instance" "webserver" {
   instance_type          = var.ec2_type
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.webserver_public_access.id]
-  //key_name               = aws_key_pair.webserver.key_name
+  key_name               = aws_key_pair.webserver.key_name
 
   tags = {
-    "Name" = "webserver"
+    "Name" = "${var.name_pref}server"
   }
 }
 
@@ -25,7 +25,6 @@ resource "aws_security_group" "webserver_public_access" {
       to_port     = ingress.value
       protocol    = "tcp"
       cidr_blocks = var.allowed_ip
-
     }
   }
 
