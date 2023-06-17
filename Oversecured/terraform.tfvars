@@ -1,6 +1,7 @@
 region             = "eu-west-2"             // London
 ec2_type           = "t2.micro"              // free tier
-ec2_ami_id         = "ami-0eb260c4d5475b901" //Ubuntu 22.04
+// ec2_ami_id         = "ami-0eb260c4d5475b901" //Ubuntu 22.04
+ec2_ami_id         = "ami-07fb9d5c721566c65" //RHEL9
 availability_zones = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
 name_pref          = "OVRS-"
 vpc_name           = "Test task"          // 
