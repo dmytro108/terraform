@@ -9,7 +9,7 @@ resource "aws_iam_user" "oversecured_user" {
 }
 
 resource "aws_iam_user_login_profile" "oversecured" {
-  user    = aws_iam_user.oversecured_user.name
+  user = aws_iam_user.oversecured_user.name
 
   tags = {
     "Name" = "${var.name_prefix}profile"
@@ -18,33 +18,33 @@ resource "aws_iam_user_login_profile" "oversecured" {
 
 resource "aws_iam_policy" "check_right" {
   description = "A test policy"
-  policy      = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "NotAction": [
-                "iam:*",
-                "organizations:*",
-                "account:*"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iam:CreateServiceLinkedRole",
-                "iam:DeleteServiceLinkedRole",
-                "iam:ListRoles",
-                "organizations:DescribeOrganization",
-                "account:ListRegions"
-            ],
-            "Resource": "*"
-        }
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "NotAction" : [
+          "iam:*",
+          "organizations:*",
+          "account:*"
+        ],
+        "Resource" : "*"
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "iam:CreateServiceLinkedRole",
+          "iam:DeleteServiceLinkedRole",
+          "iam:ListRoles",
+          "organizations:DescribeOrganization",
+          "account:ListRegions"
+        ],
+        "Resource" : "*"
+      }
     ]
-})
+  })
 
-tags = {
+  tags = {
     "Name" = "${var.name_prefix}policy"
   }
 

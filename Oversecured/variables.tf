@@ -96,6 +96,6 @@ variable "user_name" {
 
 variable "user_path" {
   description = "Path for a user"
-  type = string
-  default ="/"
+  type        = string
+  default     = "/"
 }
