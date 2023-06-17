@@ -2,14 +2,21 @@ resource "aws_iam_user" "oversecured_user" {
   name          = var.user_name
   path          = var.user_path
   force_destroy = true
+
+  tags = {
+    "Name" = "${var.name_prefix}user"
+  }
 }
 
 resource "aws_iam_user_login_profile" "oversecured" {
   user    = aws_iam_user.oversecured_user.name
+
+  tags = {
+    "Name" = "${var.name_prefix}profile"
+  }
 }
 
 resource "aws_iam_policy" "check_right" {
-  name        = "test-policy"
   description = "A test policy"
   policy      = jsonencode({
     "Version": "2012-10-17",
@@ -36,6 +43,10 @@ resource "aws_iam_policy" "check_right" {
         }
     ]
 })
+
+tags = {
+    "Name" = "${var.name_prefix}policy"
+  }
 
 }
 

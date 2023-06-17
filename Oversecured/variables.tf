@@ -10,6 +10,12 @@ variable "vpc_name" {
   default     = "Noname"
 }
 
+variable "name_pref" {
+  description = "Prefix for all names in name tag"
+  type        = string
+  default     = "-"
+}
+
 variable "env_name" {
   description = "Environment tag"
   type        = string

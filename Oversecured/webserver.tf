@@ -38,4 +38,8 @@ resource "aws_security_group" "webserver_public_access" {
       cidr_blocks = ["0.0.0.0/0"]   
     }
   }
+
+tags = {
+    "Name" = "${var.name_prefix}rules"
+  }
 }
