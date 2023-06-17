@@ -11,9 +11,6 @@ resource "aws_iam_user" "oversecured_user" {
 resource "aws_iam_user_login_profile" "oversecured" {
   user = aws_iam_user.oversecured_user.name
 
-  tags = {
-    "Name" = "${var.name_pref}profile"
-  }
 }
 
 resource "aws_iam_policy" "check_right" {
